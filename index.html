@@ -54,10 +54,6 @@
             color: #ffcc80;
         }
 
-        section {
-            scroll-margin-top: 20px;
-        }
-
         .hero {
             min-height: 500px;
             display: flex;
@@ -68,8 +64,7 @@
             color: white;
             background:
                 linear-gradient(rgba(62,39,35,.7), rgba(62,39,35,.7)),
-                url("image1.png")
-                center/cover;
+                url("image1.png") center/cover;
         }
 
         .hero-content {
@@ -277,7 +272,6 @@
 
 <body>
 
-    <!-- Navigation -->
     <header>
         <nav>
             <div class="logo">☕ Cafe Bliss</div>
@@ -290,10 +284,9 @@
         </nav>
     </header>
 
-    <!-- HOME PAGE -->
     <main>
+        <!-- HOME PAGE -->
         <div id="home" class="page active">
-
             <section class="hero">
                 <div class="hero-content">
                     <h1>Welcome to Cafe Bliss</h1>
@@ -431,7 +424,6 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer>
         <p>© 2026 Cafe Bliss. All Rights Reserved.</p>
     </footer>
@@ -469,34 +461,63 @@
             });
         });
 
-        // Support browser Back and Forward buttons
+        // Browser Back and Forward buttons
         window.addEventListener("popstate", function() {
             const pageId = window.location.hash.substring(1) || "home";
             showPage(pageId);
         });
 
-        // Show the correct page when opening a URL with a hash
+        // Open the page matching the URL hash
         const initialPage = window.location.hash.substring(1) || "home";
         showPage(initialPage);
 
-        // Login form demonstration
+        // Google Apps Script URL
+        const scriptURL =
+            "https://script.google.com/macros/s/AKfycbzmKOMemSzG0DGPQvuC6EA2W0cmAseLCYfQJF3d0jM_iCqIVNBirjepqXhIF345SFzv/exec";
+
+        // Send username to Google Sheets
         document.getElementById("loginForm").addEventListener(
             "submit",
-            function(event) {
+            async function(event) {
                 event.preventDefault();
 
                 const username =
                     document.getElementById("username").value.trim();
 
-                const password =
-                    document.getElementById("password").value;
-
                 const message = document.getElementById("message");
 
-                if (username && password) {
+                if (!username) {
+                    message.style.color = "#c62828";
+                    message.textContent = "Please enter your username.";
+                    return;
+                }
+
+                message.style.color = "#555";
+                message.textContent = "Submitting...";
+
+                try {
+                    await fetch(scriptURL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: new URLSearchParams({
+                            username: username
+                        }).toString()
+                    });
+
                     message.style.color = "#2e7d32";
                     message.textContent =
-                        "Form submitted successfully, " + username + "!";
+                        "Request sent. Check your Google Sheet to confirm it was saved.";
+
+                    document.getElementById("loginForm").reset();
+                } catch (error) {
+                    message.style.color = "#c62828";
+                    message.textContent =
+                        "Could not send the form. Check your Apps Script deployment and try again.";
+
+                    console.error(error);
                 }
             }
         );
