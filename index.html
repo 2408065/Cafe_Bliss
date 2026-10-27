@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Bliss</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fffaf5;
+            color: #3e2723;
+        }
+
+        header, footer {
+            background: #4e342e;
+            color: white;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #ffcc80;
+        }
+
+        section {
+            scroll-margin-top: 20px;
+        }
+
+        .hero {
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px 20px;
+            color: white;
+            background:
+                linear-gradient(rgba(62,39,35,.7), rgba(62,39,35,.7)),
+                url("image1.png")
+                center/cover;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #d2691e;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #a94f10;
+        }
+
+        .about {
+            max-width: 1100px;
+            margin: auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .about h2, .menu-header h1, .login-box h1 {
+            margin-bottom: 15px;
+        }
+
+        .about > p {
+            max-width: 700px;
+            margin: auto;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .features, .menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: 40px auto 0;
+        }
+
+        .feature, .menu-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+        }
+
+        .icon, .food-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3, .menu-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .feature p, .menu-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .menu-header {
+            text-align: center;
+            padding: 50px 20px 10px;
+        }
+
+        .menu-header p {
+            color: #666;
+        }
+
+        .menu {
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .menu-card span {
+            color: #d2691e;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .menu-card {
+            transition: transform .3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .back-home {
+            text-align: center;
+            padding: 10px 20px 50px;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .login-box {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,.1);
+        }
+
+        .login-box h1, .login-box > p {
+            text-align: center;
+        }
+
+        .login-box > p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .login-box label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-box input:focus {
+            outline: 2px solid #d2691e;
+        }
+
+        .login-box .btn {
+            width: 100%;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 18px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .features, .menu {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">☕ Cafe Bliss</div>
+
+            <ul>
+                <li><a href="#home" data-page="home">Home</a></li>
+                <li><a href="#menu" data-page="menu">Menu</a></li>
+                <li><a href="#login" data-page="login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HOME PAGE -->
+    <main>
+        <div id="home" class="page active">
+
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Welcome to Cafe Bliss</h1>
+                    <p>
+                        Fresh coffee, delicious food and a cozy place
+                        to relax with your friends and family.
+                    </p>
+                    <a href="#menu" class="btn" data-page="menu">
+                        View Our Menu
+                    </a>
+                </div>
+            </section>
+
+            <section class="about">
+                <h2>About Our Cafe</h2>
+                <p>
+                    Cafe Bliss is a cozy cafe where great coffee meets
+                    delicious food. We serve freshly prepared meals,
+                    tasty snacks and refreshing beverages every day.
+                </p>
+
+                <div class="features">
+                    <div class="feature">
+                        <div class="icon">☕</div>
+                        <h3>Fresh Coffee</h3>
+                        <p>Enjoy freshly brewed coffee made with quality beans.</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="icon">🍰</div>
+                        <h3>Delicious Food</h3>
+                        <p>Enjoy tasty snacks, desserts and fresh meals.</p>
+                    </div>
+
+                    <div class="feature">
+                        <div class="icon">❤️</div>
+                        <h3>Cozy Place</h3>
+                        <p>A comfortable place to relax, study or meet friends.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- MENU PAGE -->
+        <div id="menu" class="page">
+            <section class="menu-header">
+                <h1>Our Menu</h1>
+                <p>Freshly prepared and made with love.</p>
+            </section>
+
+            <section class="menu">
+                <div class="menu-card">
+                    <div class="food-icon">☕</div>
+                    <h3>Cappuccino</h3>
+                    <p>Rich espresso with steamed milk and creamy foam.</p>
+                    <span>₹120</span>
+                </div>
+
+                <div class="menu-card">
+                    <div class="food-icon">🍵</div>
+                    <h3>Masala Tea</h3>
+                    <p>Traditional Indian tea with aromatic spices.</p>
+                    <span>₹80</span>
+                </div>
+
+                <div class="menu-card">
+                    <div class="food-icon">🥪</div>
+                    <h3>Veg Sandwich</h3>
+                    <p>Fresh vegetables, cheese and delicious house sauce.</p>
+                    <span>₹150</span>
+                </div>
+
+                <div class="menu-card">
+                    <div class="food-icon">🍕</div>
+                    <h3>Cheese Pizza</h3>
+                    <p>Cheesy pizza topped with fresh vegetables.</p>
+                    <span>₹220</span>
+                </div>
+
+                <div class="menu-card">
+                    <div class="food-icon">🍔</div>
+                    <h3>Veg Burger</h3>
+                    <p>Crispy vegetable patty with fresh salad and sauce.</p>
+                    <span>₹180</span>
+                </div>
+
+                <div class="menu-card">
+                    <div class="food-icon">🍰</div>
+                    <h3>Chocolate Cake</h3>
+                    <p>Soft and delicious chocolate cake.</p>
+                    <span>₹140</span>
+                </div>
+            </section>
+
+            <div class="back-home">
+                <a href="#home" class="btn" data-page="home">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+
+        <!-- LOGIN PAGE -->
+        <div id="login" class="page">
+            <section class="login-container">
+                <div class="login-box">
+                    <h1>Welcome Back!</h1>
+                    <p>Login to Cafe Bliss</p>
+
+                    <form id="loginForm">
+                        <label for="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                            required
+                        >
+
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button type="submit" class="btn">Submit</button>
+                        <div id="message" role="status"></div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Cafe Bliss. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Switch between Home, Menu and Login
+        function showPage(pageId) {
+            const pages = document.querySelectorAll(".page");
+
+            pages.forEach(function(page) {
+                page.classList.remove("active");
+            });
+
+            const selectedPage = document.getElementById(pageId);
+
+            if (selectedPage) {
+                selectedPage.classList.add("active");
+            } else {
+                document.getElementById("home").classList.add("active");
+                pageId = "home";
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        // Navigation links
+        document.querySelectorAll("[data-page]").forEach(function(link) {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const pageId = this.getAttribute("data-page");
+
+                history.pushState({ page: pageId }, "", "#" + pageId);
+                showPage(pageId);
+            });
+        });
+
+        // Support browser Back and Forward buttons
+        window.addEventListener("popstate", function() {
+            const pageId = window.location.hash.substring(1) || "home";
+            showPage(pageId);
+        });
+
+        // Show the correct page when opening a URL with a hash
+        const initialPage = window.location.hash.substring(1) || "home";
+        showPage(initialPage);
+
+        // Login form demonstration
+        document.getElementById("loginForm").addEventListener(
+            "submit",
+            function(event) {
+                event.preventDefault();
+
+                const username =
+                    document.getElementById("username").value.trim();
+
+                const password =
+                    document.getElementById("password").value;
+
+                const message = document.getElementById("message");
+
+                if (username && password) {
+                    message.style.color = "#2e7d32";
+                    message.textContent =
+                        "Form submitted successfully, " + username + "!";
+                }
+            }
+        );
+    </script>
+
+</body>
+</html>
